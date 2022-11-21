@@ -1,0 +1,22 @@
+{
+
+    "manifest_version": 3,
+    "name": "NoReco",
+    "version": "1.0",
+  
+    "description": "Prevent from Youtube recomendations, so to focus on what you want to look for in the platform",
+  
+    "icons": {
+      "512": "icons/512.png"
+    },
+    "action": {
+      "default_icon": "icons/512.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://*.youtube.com/*"],
+        "js": ["main.js"]
+      }
+    ]
+  
+  }
