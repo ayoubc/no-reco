@@ -1,4 +1,10 @@
+const hideElement = (identifier) => {
+    let element = document.querySelector(identifier);
+    if(element && element.style) element.style.display = 'none';
+}
+
+
 setInterval(() => {
-    let videosContainer = document.querySelector('ytd-rich-grid-renderer');
-    if (videosContainer && videosContainer.style) videosContainer.style.display = 'none';
+    hideElement('ytd-rich-grid-renderer');
+    hideElement('#secondary');
 }, 1000);
