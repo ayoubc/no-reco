@@ -8,11 +8,12 @@
     },
     "action": {
         "default_icon": "icons/512.png",
-        "default_popup": "index.html",
+        "default_popup": "popup/index.html",
         "default_title": "NoReco"
     },
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "storage"
     ],
     "content_scripts": [
         {

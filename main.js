@@ -1,25 +1,52 @@
-const wholePageSelector = 'ytd-rich-grid-renderer';
+const allPageSelector = 'ytd-rich-grid-renderer';
 const shortsSelector = '.ytd-rich-section-renderer';
+const watchNextSelector = 'ytd-watch-next-secondary-results-renderer';
+
 const rowLimit = 1;
 
-const hideElement = (identifier) => {
+function changeDisplay(identifier, hide) {
 	let element = document.querySelector(identifier);
-	if (element && element.style) element.style.display = 'none';
+	if (element && element.style) {
+		element.style.display = hide ? 'none' : 'block';
+	}
 }
+
+function updatePage(cache) {
+	changeDisplay(allPageSelector, cache.all);	
+	changeDisplay(shortsSelector, cache.shorts);
+	changeDisplay(watchNextSelector, cache.next);
+}
+
+
+function initiate() {
+	//alert("reloaded !!!");
+    chrome.storage.local.get(['cache'], function(items) {
+        const { cache } = items;
+		console.log(items);
+		if (cache) {
+			updatePage(cache);
+		}
+	});
+
+}
+
+initiate();
+
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	console.log(request, sender, sendResponse);
 	const { element, state } = request;
-	alert("Got a message from PopUp");
-	if (element === 'all') {
-		hideElement(wholePageSelector);
-	}
-	else if (element === 'shorts') {
-		hideElement(shortsSelector);
-	}
+	chrome.storage.local.get(['cache'], function(items) {
+		const cache = items.cache || {};
+		console.log(cache)
+		cache[element] = state;
+		updatePage(cache);
+		chrome.storage.local.set({cache: cache});
+	});
+	
 	// setInterval(() => {
-	//     hideElement(wholePageSelector);
-	//     // hideElement('#secondary');
-	//     // hideElement(shortsSelector);
+	//     changeDisplay(allPageSelector);
+	//     // changeDisplay('#secondary');
+	//     // changeDisplay(shortsSelector);
 	// }, 1000);
 });
