@@ -63,3 +63,9 @@ input:checked+.slider:before {
     justify-content: space-between;
     margin: 5px 0;
 }
+.youtube {
+    color: #ff0000;
+}
+.linkedin {
+    color: #5997d5;
+}

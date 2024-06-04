@@ -1,6 +1,8 @@
 const allPageSelector = 'ytd-rich-grid-renderer';
 const shortsSelector = 'ytd-rich-section-renderer';
 const watchNextSelector = 'ytd-watch-next-secondary-results-renderer';
+const mainFeedSelector = '.scaffold-layout__main';
+
 let sessionState = null;
 
 const rowLimit = 1;
@@ -14,6 +16,7 @@ function updatePage(cache) {
 	changeDisplay(allPageSelector, cache.all);	
 	changeDisplay(shortsSelector, cache.shorts);
 	changeDisplay(watchNextSelector, cache.next);
+	changeDisplay(mainFeedSelector, cache.mainFeed);
 }
 
 
@@ -21,7 +24,6 @@ function initiate() {
 	//alert("reloaded !!!");
     chrome.storage.local.get(['cache'], function(items) {
         const { cache } = items;
-		console.log(items);
 		if (cache) {
 		    sessionState = {...cache};
 			updatePage(cache);
@@ -40,7 +42,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	const { element, state } = request;
 	chrome.storage.local.get(['cache'], function(items) {
 		const cache = items.cache || {};
-		console.log(cache)
 		cache[element] = state;
 		sessionState = {...cache};
 		updatePage(cache);

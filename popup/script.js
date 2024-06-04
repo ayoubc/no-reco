@@ -10,9 +10,11 @@ function updateCheckboxes(cache) {
     const shortsCheckbox = document.getElementById('shorts');
     const allCheckbox = document.getElementById('all');
     const nextCheckbox = document.getElementById('next');
+    const mainFeedCheckbox = document.getElementById('mainFeed');
     shortsCheckbox.checked = cache.shorts;
     allCheckbox.checked = cache.all;
     nextCheckbox.checked = cache.next;
+    mainFeedCheckbox.checked = cache.mainFeed;
 }
 
 function initiate() {
